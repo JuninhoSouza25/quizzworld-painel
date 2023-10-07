@@ -28,7 +28,7 @@ export default function Signin(){
       return
     }
 
-    router.replace('/dashboard')
+    router.replace('/admin')
 
   }
 
@@ -38,13 +38,11 @@ export default function Signin(){
           <form>
             <input
             name="Email"
-            value={email}
             type="email"
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Email" />
             <input 
             name="Password"
-            value={password}
             type="password"
             onChange={(e) => setPassword(e.target.value)}
             placeholder="password" />
