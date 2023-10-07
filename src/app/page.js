@@ -14,7 +14,7 @@ export default function Home() {
           <button 
             type='button'
             className='text-white bg-primary'
-            onClick={() => signIn("google")}>Login</button>
+            onClick={() => signIn("credentials")}>Login</button>
         </>
         }
     </section>
