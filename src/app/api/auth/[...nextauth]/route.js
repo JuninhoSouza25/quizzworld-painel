@@ -25,6 +25,7 @@ export const authOption = {
         const user = await response.json()
   
         if (user && response.ok) {
+          console.log(user)
           return user
         } else {
 
@@ -35,6 +36,16 @@ export const authOption = {
   ],
   pages: {
     signIn: '/signin'
+  },
+  callbacks: {
+    async jwt({token, user}){
+      user && (token.user = user)
+      return token
+    },
+    async session({ session, token}){
+      session = token.user
+      return session
+    }
   }
 
 }

@@ -6,7 +6,6 @@ import { useState } from 'react';
 export default function Signin(){
 
   const { data: session } = useSession();
-  console.log(session)
 
   const [ email, setEmail ] = useState('')
   const [ password, setPassword ] = useState('')
@@ -24,9 +23,11 @@ export default function Signin(){
     })
 
     if(result?.error){
-      setErro(true)
+      setErro(result.error)
       return
     }
+
+    console.log(result)
 
     router.replace('/admin')
 
@@ -39,11 +40,13 @@ export default function Signin(){
             <input
             name="Email"
             type="email"
+            value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Email" />
             <input 
             name="Password"
             type="password"
+            value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="password" />
             <button 
@@ -53,7 +56,7 @@ export default function Signin(){
           </form>
 
           {erro && (
-            <span className='text-danger'>Usuário ou senha incorreto</span>
+            <span className='text-danger'>{erro}</span>
           )}
           
     </div>

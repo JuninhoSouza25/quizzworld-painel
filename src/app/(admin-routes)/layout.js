@@ -1,11 +1,14 @@
+'use client'
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { nextAuthOption } from "../api/auth/[...nextauth]/route";
+import { useSession } from "next-auth/react";
 
-export default async function PrivateLayout({children}){
-  const session = await getServerSession(nextAuthOption)
+export default function PrivateLayout({children}){
+  const {data: session} = useSession()
+  
 
-  if(session){
+  if(!session){
     redirect('/signin')
   }
 
