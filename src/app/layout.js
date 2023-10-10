@@ -6,7 +6,7 @@ import NextAuthSessionProvider from '@/providers/sessionProviders'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'Quizz World',
+  title: 'Quizzlies',
   description: 'Teste seus conhecimentos, desafie seus amigos e descubra o quão esperto você realmente é. Junte-se a nós agora e embarque em uma jornada de aprendizado e entretenimento, onde a diversão nunca termina!',
 }
 

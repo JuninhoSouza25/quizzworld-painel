@@ -6,4 +6,7 @@
   box-sizing: border-box;
 }
 
-@import './_button.scss';
+@import './button';
+@import './variables';
+@import './forms';
+@import './typography';

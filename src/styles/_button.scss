@@ -1,6 +1,8 @@
 .btn-style-1{
+  background-color: var(--color-primary);
   transition: ease all .8s;
   &:hover{
-    background-color: #041836;
+    background-color: var(--color-secondary);
+    box-shadow: var(--shadow-primary);
   }
 }
