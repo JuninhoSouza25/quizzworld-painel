@@ -7,7 +7,7 @@ export default function PrivateLayout({children}){
   
   console.log('session' , session)
 
-  if(!session && session?.user.role !== 'Admin'){
+  if(!session && session?.user.role !== "creater"){
     redirect('/signin')
   }
 

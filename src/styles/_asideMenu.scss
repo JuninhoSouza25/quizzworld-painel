@@ -1,0 +1,26 @@
+.aside-menu{
+  height: 100%;
+  position: absolute;
+  left: 0;
+
+  .branch{
+    height: 120px;
+  }
+   ul{
+    padding: 0 3px;
+    li{
+      cursor: pointer;
+      padding: 7px 10px;
+      list-style: none;
+      border-radius: 12px;
+      border: 1px solid #66666640;
+      transition: var(--transition);
+
+      &:hover{
+        color: var(--color-white);
+        background: var(--color-gradient-primary);
+        border: 1px solid var(--color-gradient-primary);
+      }
+    }
+   }
+}

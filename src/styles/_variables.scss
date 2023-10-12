@@ -13,6 +13,10 @@
   --color-shape: #EEEEEE;
   --color-shade: #F5F5F5;
   --color-border: #EEEEEE;
+
+  // Gradient colors
+
+  --color-gradient-primary: linear-gradient(153deg, rgba(13,110,253,1) 0%, rgba(70,149,246,1) 68%);
  
   
   // Typo Color 
@@ -74,7 +78,7 @@
 
 
   //transition easing
-  --transition: 0.3s;
+  --transition: ease all 0.6s;
   --transition-transform: transform .65s cubic-bezier(.23,1,.32,1);
 
 

@@ -32,9 +32,13 @@ export default function Home() {
       return
     }
 
-    console.log(result)
+    if (session.user.role === 'Admin'){
+      router.replace('/admin')
+    }
 
-    router.replace('/admin')
+    if (session.user.role === 'Creater'){
+      router.replace('/creater')
+    }
   }
 
   return (

@@ -29,9 +29,14 @@ export default function Signin(){
       return
     }
 
-    console.log(result)
+    if (session.user.role === 'Admin'){
+      router.replace('/admin')
+    }
 
-    router.replace('/admin')
+    if (session.user.role === 'Creater'){
+      router.replace('/creater')
+    }
+
 
   }
 
