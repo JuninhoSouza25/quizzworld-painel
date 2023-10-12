@@ -1,6 +1,8 @@
 import img1 from '@/assets/img/avatar.png'
+import Logout from './Logout'
 
 const Header = ({pageTitle, userName,userRole, avatar = img1}) => {
+
   return(
     <div className="header-section row col-12 bg-white shadow">
 
@@ -16,7 +18,8 @@ const Header = ({pageTitle, userName,userRole, avatar = img1}) => {
           </div>
 
           <p className="mb-0">{userName}</p>
-          <p>{userRole}</p>
+          <p className='mb-0'>{userRole}</p>
+          <Logout />
         </div>
       </div>
         
