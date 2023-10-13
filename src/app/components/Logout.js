@@ -15,6 +15,11 @@ export default function Logout(){
 
   }
 
-  return <LuLogOut onClick={logout}/>
+  return (
+    <div className="logout-button d-flex justify-content-center align-items-center">
+      <LuLogOut className="logout-icon me-3 text-danger" onClick={logout}/>
+      <p className="mb-0 text-danger">Logout</p>
+    </div>
+  )
 
 }

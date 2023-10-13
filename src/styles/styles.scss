@@ -6,9 +6,18 @@
   box-sizing: border-box;
 }
 
+ul{
+  li{
+    list-style: none
+  }
+}
+
 @import './button';
 @import './variables';
 @import './forms';
 @import './typography';
 @import './asideMenu';
 @import './headerSection';
+@import './logoutButton';
+@import './userAdmin';
+@import './mainSection';
