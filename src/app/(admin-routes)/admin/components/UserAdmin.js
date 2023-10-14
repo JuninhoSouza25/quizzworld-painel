@@ -29,12 +29,13 @@ const UserAdmin = () =>{
   function eraseUser(id){
     axios.delete(`${URL}/user/${id}`)
     setAllUsers(allUsers.filter(user => user._id !== id))
-    popup && setPopUp(false)
+    setPopUp(false)
   }
 
   function handlePopUp(userPopup){
-    !popup && setPopUp(true)
+    !popup ? setPopUp(true) : setPopUp(false)
     setUser(userPopup)
+    console.log(user)
 
   }
 
@@ -43,7 +44,7 @@ const UserAdmin = () =>{
   return(
     <div className="user-admin col bg-white shadow">
 
-    {popup && <PopUp user={user} function1={() => eraseUser(user._id)} function2={handlePopUp}/>}
+    {popup && <PopUp user={user.username} function1={() => eraseUser(user._id)} function2={handlePopUp}/>}
 
       <ul>
         <li className="mb-3 row pt-4 pb-2">

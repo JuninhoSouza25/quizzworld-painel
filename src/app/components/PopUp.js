@@ -8,7 +8,7 @@ export default function PopUp({user, function1, function2}){
           <RiErrorWarningLine className='popup-icon-danger text-danger' />
         </div>
         <div className='row text-center'>
-          <p>{`Tem certeza que gostaria de deletar o usuário: ${user.username}`}</p>
+          <p>{`Tem certeza que gostaria de deletar o usuário: ${user}`}</p>
         </div>
         <div className='row col d-flex justify-content-center gap-3'>
           <button 
