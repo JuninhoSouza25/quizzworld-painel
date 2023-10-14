@@ -9,15 +9,6 @@ html, body {
 
 }
 
-ul{
-  li{
-    list-style: none
-  }
-}
-
-.cursor-pointer{
-  cursor: pointer;
-}
 
 @import './button';
 @import './variables';
@@ -29,3 +20,5 @@ ul{
 @import './userAdmin';
 @import './mainSection';
 @import './popUp';
+@import './globals';
+@import './userDetails';
