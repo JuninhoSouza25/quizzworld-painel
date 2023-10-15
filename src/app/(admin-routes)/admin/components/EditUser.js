@@ -69,7 +69,7 @@ export default function EditUser({user, action}){
       {updatedUser ? (
         <div className="col-6 p-5 ms-3">
         <div className="thumbnail-wrapper">
-          <img className="thumbnail" src={updatedUser.thumbnail} alt="thumbnail"/>
+          <img className="thumbnail" src={updatedUser.thumbnail ? updatedUser.thumbnail : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRs867oiFI9uKZePrJlp5ccrk_PJOu1ABWO8hnIutySxpbwLIHe2VAHDTV6PFb7yua7UbA&usqp=CAU"} alt="thumbnail"/>
         </div>
         <h3 className="mt-5 fw-normal">{updatedUser.name}</h3>
         <div className="row col-12 d-flex align-items-center justify-content-around gap-4">
@@ -88,7 +88,7 @@ export default function EditUser({user, action}){
       ) : (
         <div className="col-6 p-5 ms-3">
           <div className="thumbnail-wrapper">
-            <img className="thumbnail" src={user.thumbnail} alt="thumbnail"/>
+            <img className="thumbnail" src={user.thumbnail ? user.thumbnail : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRs867oiFI9uKZePrJlp5ccrk_PJOu1ABWO8hnIutySxpbwLIHe2VAHDTV6PFb7yua7UbA&usqp=CAU"} alt="thumbnail"/>
           </div>
           <h3 className="mt-5 fw-normal">{user.name}</h3>
           <div className="row col-12 d-flex align-items-center justify-content-around gap-4">
