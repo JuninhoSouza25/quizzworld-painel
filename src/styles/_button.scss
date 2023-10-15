@@ -6,3 +6,9 @@
     box-shadow: var(--shadow-primary);
   }
 }
+
+button:disabled,
+button[disabled]{
+  background-color: #9f9f9f;
+  color: #f8f8f8;
+}

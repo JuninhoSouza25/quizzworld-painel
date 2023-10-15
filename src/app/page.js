@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import Button from './components/Button';
 import Input from './components/Input';
+import Loading from './components/Loading';
 
 export default function Home() {
 
@@ -11,21 +12,22 @@ export default function Home() {
   const [ email, setEmail ] = useState('')
   const [ password, setPassword ] = useState('')
   const [ erro, setErro ] = useState('')
+  const [loading, setLoading] = useState(false)
+
 
   const router = useRouter()
 
-  if(session){
-    router.replace('/admin')
-  }
-
   const handleLogin = async (e) => {
     e.preventDefault()
+    setLoading(true)
 
     const result = await signIn('credentials',{
       email,
       password,
       redirect: false
     })
+
+    setLoading(false)
 
     if(result?.error){
       setErro(result.error)
@@ -68,7 +70,7 @@ export default function Home() {
           onclick={handleLogin}
           text="Login"/>
         </form>
-
+        {loading && <Loading />}
         {erro && (
           <span className='text-danger'>Usuário ou senha inesistente</span>
         )}

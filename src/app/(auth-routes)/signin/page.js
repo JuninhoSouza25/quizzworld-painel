@@ -1,6 +1,7 @@
 'use client'
 import Button from '@/app/components/Button';
 import Input from '@/app/components/Input';
+import Loading from '@/app/components/Loading';
 import { signIn, signOut, useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -12,28 +13,31 @@ export default function Signin(){
   const [ email, setEmail ] = useState('')
   const [ password, setPassword ] = useState('')
   const [ erro, setErro ] = useState('')
+  const [loading, setLoading] = useState(false)
 
   const router = useRouter()
 
   const handleLogin = async (e) => {
     e.preventDefault()
-
+    setLoading(true)
     const result = await signIn('credentials',{
       email,
       password,
       redirect: false
     })
 
+    setLoading(false)
+
     if(result?.error){
       setErro(result.error)
       return
     }
 
-    if (session?.user.role === 'Admin'){
+    if (session.user.role === 'Admin'){
       router.replace('/admin')
     }
 
-    if (session?.user.role === 'Creater'){
+    if (session.user.role === 'Creater'){
       router.replace('/creater')
     }
 
@@ -68,10 +72,11 @@ export default function Signin(){
           />
           <Button
           classes='btn-style-1'
+          disable={loading && "disable"}
           onclick={handleLogin}
           text="Login"/>
         </form>
-
+        {loading && <Loading />}
         {erro && (
           <span className='text-danger'>Usuário ou senha inesistente</span>
         )}
