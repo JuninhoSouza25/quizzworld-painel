@@ -4,6 +4,7 @@ import { useSession } from "next-auth/react"
 import { useState } from "react";
 import { LuArrowRight, LuFilePieChart, LuFileBarChart, LuFileStack, LuFileText, LuUsers } from "react-icons/lu";
 import UserAdmin from "./components/UserAdmin";
+import DashboardAdmin from "./components/DashboardAdmin";
 
 export default function Admin(){
 
@@ -16,7 +17,7 @@ export default function Admin(){
   return(
     <div className="admin-page container-fluid d-flex justify-content-center">
 
-      <div className="aside-menu col-12 col-md-2 bg-white shadow">
+      <div className="aside-menu col-12 col-md-2 bg-light shadow">
         <div className="brand text-center d-flex align-items-center justify-content-center">
           <h1 className="h3 text-primary">Quizzlies</h1>
         </div>
@@ -71,6 +72,8 @@ export default function Admin(){
         userRole={session.user.role}/>
 
         {component === 'Usuários' && <UserAdmin sectionDefault={"home"} />}
+
+        {component === 'Dashboard' && <DashboardAdmin sectionDefault={"home"} />}
 
       </div>
 

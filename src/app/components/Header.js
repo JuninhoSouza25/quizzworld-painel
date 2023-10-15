@@ -4,7 +4,7 @@ import Logout from './Logout'
 const Header = ({pageTitle, userName,userRole, avatar = img1}) => {
 
   return(
-    <div className="header-section row col-12 bg-white shadow">
+    <div className="header-section row col-12 bg-light shadow">
 
       <div className="col-6 d-flex align-items-center justify-content-center">
         <h1 className="h3">{pageTitle}</h1>

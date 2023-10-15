@@ -53,7 +53,7 @@ const UserAdmin = ({sectionDefault}) =>{
   
 
   return(
-    <div className="user-admin col bg-white shadow">
+    <div className="user-admin col bg-light shadow">
 
       {popup && <PopUp user={user.username} function1={() => eraseUser(user._id)} function2={handlePopUp}/>}
 
