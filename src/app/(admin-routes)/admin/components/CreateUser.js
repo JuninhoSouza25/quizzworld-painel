@@ -56,7 +56,6 @@ export default function CreateUser({action}){
     <div className="col-12 row">
       <div className="col-12 row">
         <h3 className="h3 text-center fw-normal mt-5">Criar novo usuário</h3>
-        <span className="col-12 text-danger text-end mt-0 w-100 cursor-pointer" onClick={action} >Voltar <RiArrowGoBackFill className="icon-back fs-1 cursor-pointer text-danger"/></span>
       </div>
 
       {!msgSuccess ? (
@@ -165,9 +164,12 @@ export default function CreateUser({action}){
         <div className="col-12 row text-center">
           {msgSuccess && <span className="col-12 text-danger text-center mt-0 w-100">{msgSuccess}</span>}
           {msgFail && <span className="col-12 text-danger text-center mt-0 w-100">{msgFail}</span>}
-          <span className="col-12 text-danger text-center mt-0 w-100">Voltar <RiArrowGoBackFill className="icon-back fs-1 cursor-pointer text-danger" onClick={action} /></span>
         </div>
       )}
+
+      <span className="col-12 text-danger text-center my-3 w-100 cursor-pointer" onClick={action} >
+        Voltar <RiArrowGoBackFill className="icon-back fs-1 cursor-pointer text-danger"/>
+      </span>
 
     </div>
   )

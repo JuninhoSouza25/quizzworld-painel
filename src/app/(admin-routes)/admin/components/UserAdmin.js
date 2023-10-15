@@ -8,6 +8,7 @@ import {LiaUserEditSolid, LiaUser} from 'react-icons/lia'
 import {RiDeleteBin2Line, RiArrowGoBackFill} from 'react-icons/ri'
 import UserHome from "./UserHome"
 import CreateUser from "./CreateUser"
+import EditUser from "./EditUser"
 
 const UserAdmin = ({sectionDefault}) =>{
   const [ allUsers, setAllUsers ] = useState([])
@@ -26,7 +27,7 @@ const UserAdmin = ({sectionDefault}) =>{
       console.log(error)
     })
 
-  },[])
+  },[allUsers])
 
 
   // Delete User
@@ -79,7 +80,7 @@ const UserAdmin = ({sectionDefault}) =>{
               <div className="col-2 fw-light">{item.role}</div>
               <div className="col-2 fw-light row">
                 <LiaUser className="col-2 fs-2 text-success cursor-pointer" onClick={() => handleSection(item, 'details')}/>
-                <LiaUserEditSolid className="col-2 fs-2 cursor-pointer"/>
+                <LiaUserEditSolid className="col-2 fs-2 cursor-pointer" onClick={() => handleSection(item, 'edite-user')}/>
                 <RiDeleteBin2Line className="col-2 fs-2 text-danger cursor-pointer" onClick={() => handlePopUp(item)}/>
               </div>
 
@@ -89,13 +90,15 @@ const UserAdmin = ({sectionDefault}) =>{
       )}
 
       {section === 'details' && (
-
-        <UserDetails user={user} action={() => handleSection(null, 'users')} />
-        
+        <UserDetails user={user} action={() => handleSection(null, 'home')} />
       )}
 
       {section === 'create-user' && (
-        <CreateUser action={() => handleSection(null, 'users')}/>
+        <CreateUser action={() => handleSection(null, 'home')}/>
+      )}
+
+      {section === 'edite-user' && (
+        <EditUser user={user} action={() => handleSection(null, 'home')}/>
       )}
 
     </div>
