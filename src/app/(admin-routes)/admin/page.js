@@ -14,10 +14,10 @@ export default function Admin(){
 
 
   return(
-    <div className="admin-page container-fluid h-100 d-flex justify-content-center">
+    <div className="admin-page container-fluid d-flex justify-content-center">
 
-      <div className="aside-menu col-12 col-lg-2 bg-white shadow">
-        <div className="branch text-center d-flex align-items-center justify-content-center">
+      <div className="aside-menu col-12 col-md-2 bg-white shadow">
+        <div className="brand text-center d-flex align-items-center justify-content-center">
           <h1 className="h3 text-primary">Quizzlies</h1>
         </div>
         <nav className="mt-5">
@@ -70,7 +70,7 @@ export default function Admin(){
         avatar={session.user.thumbnail}
         userRole={session.user.role}/>
 
-        {component === 'Usuários' && <UserAdmin />}
+        {component === 'Usuários' && <UserAdmin sectionDefault={"home"} />}
 
       </div>
 

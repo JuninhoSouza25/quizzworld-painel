@@ -1,16 +1,19 @@
 'use client'
 
 import PopUp from "@/app/components/PopUp"
+import UserDetails from "@/app/components/UserDetails"
 import axios from "axios"
 import { useEffect, useState } from "react"
 import {LiaUserEditSolid, LiaUser} from 'react-icons/lia'
 import {RiDeleteBin2Line, RiArrowGoBackFill} from 'react-icons/ri'
+import UserHome from "./UserHome"
+import CreateUser from "./CreateUser"
 
-const UserAdmin = () =>{
+const UserAdmin = ({sectionDefault}) =>{
   const [ allUsers, setAllUsers ] = useState([])
   const [popup, setPopUp] = useState(false)
   const [user, setUser] = useState()
-  const [section, setSection] = useState('users')
+  const [section, setSection] = useState(sectionDefault)
 
   const URL = process.env.URL_API
 
@@ -40,21 +43,24 @@ const UserAdmin = () =>{
 
   }
 
-  function handleDetailsSection(data){
-    setSection('details')
+  function handleSection(data, section){
+    setSection(section)
     setUser(data)
-  }
+    setAllUsers(allUsers.filter(user => user._id !== "asdf"))
 
-  function handleUsersSection(){
-    setSection('users')
   }
-
   
 
   return(
     <div className="user-admin col bg-white shadow">
 
-    {popup && <PopUp user={user.username} function1={() => eraseUser(user._id)} function2={handlePopUp}/>}
+      {popup && <PopUp user={user.username} function1={() => eraseUser(user._id)} function2={handlePopUp}/>}
+
+      {section === 'home' && (
+        <UserHome 
+        action1={() => handleSection(null, 'users')}
+        action2={() => handleSection(null, 'create-user')}/>
+      )}
 
       {section === 'users' && (
         <ul>
@@ -72,7 +78,7 @@ const UserAdmin = () =>{
               <div className="col-3 fw-light">{item.email}</div>
               <div className="col-2 fw-light">{item.role}</div>
               <div className="col-2 fw-light row">
-                <LiaUser className="col-2 fs-2 text-success cursor-pointer" onClick={() => handleDetailsSection(item)}/>
+                <LiaUser className="col-2 fs-2 text-success cursor-pointer" onClick={() => handleSection(item, 'details')}/>
                 <LiaUserEditSolid className="col-2 fs-2 cursor-pointer"/>
                 <RiDeleteBin2Line className="col-2 fs-2 text-danger cursor-pointer" onClick={() => handlePopUp(item)}/>
               </div>
@@ -83,29 +89,13 @@ const UserAdmin = () =>{
       )}
 
       {section === 'details' && (
-        <div className="user-details row col-12 p-5">
-          <div className="col-6">
-            <div className="thumbnail-wrapper">
-              <img className="thumbnail" src={user.thumbnail} alt="thumbnail"/>
-            </div>
-            <h3 className="mt-5 fw-normal">{user.name}</h3>
-            <div className="row col-12 d-flex align-items-center justify-content-around gap-4">
-              <span className="col-2 fw-bold">Nome:</span>
-              <span className="col">{user.email}</span>
-            </div>
-            <div className="row col-12 d-flex align-items-center justify-content-around gap-4">
-              <span className="col-2 fw-bold">Função:</span>
-              <span className="col">{user.role}</span>
-            </div>
-            <div className="row col-12 d-flex align-items-center justify-content-around gap-4">
-              <span className="col-2 fw-bold">Aniversário:</span>
-              <span className="col">{user.birthday}</span>
-            </div>
-          </div>
-          <div className="user-details-r col d-flex align-items-end justify-content-end">
-            <RiArrowGoBackFill className="icon-back fs-1 cursor-pointer text-danger" onClick={() => handleUsersSection()} />
-          </div>
-        </div>
+
+        <UserDetails user={user} action={() => handleSection(null, 'users')} />
+        
+      )}
+
+      {section === 'create-user' && (
+        <CreateUser action={() => handleSection(null, 'users')}/>
       )}
 
     </div>

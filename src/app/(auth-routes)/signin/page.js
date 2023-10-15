@@ -29,11 +29,11 @@ export default function Signin(){
       return
     }
 
-    if (session.user.role === 'Admin'){
+    if (session?.user.role === 'Admin'){
       router.replace('/admin')
     }
 
-    if (session.user.role === 'Creater'){
+    if (session?.user.role === 'Creater'){
       router.replace('/creater')
     }
 
