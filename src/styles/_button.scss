@@ -11,4 +11,10 @@ button:disabled,
 button[disabled]{
   background-color: #9f9f9f;
   color: #f8f8f8;
+
+  &:hover{
+    background-color: #9f9f9f;
+    color: #f8f8f8;
+    box-shadow: none;
+  }
 }

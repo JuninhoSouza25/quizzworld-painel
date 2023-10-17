@@ -12,6 +12,7 @@ export default function Home() {
   const [ email, setEmail ] = useState('')
   const [ password, setPassword ] = useState('')
   const [ erro, setErro ] = useState('')
+  const [ msg, setMsg ] = useState('')
   const [loading, setLoading] = useState(false)
 
 
@@ -28,6 +29,10 @@ export default function Home() {
     })
 
     setLoading(false)
+
+    if(result?.ok){
+      setMsg(session.msg)
+    }
 
     if(result?.error){
       setErro(result.error)
@@ -65,12 +70,28 @@ export default function Home() {
           placeholder="Digite sua senha"
           classes='mb-3'
           />
-          <Button
-          classes='btn-style-1'
-          onclick={handleLogin}
-          text="Login"/>
+           {loading || msg ? (
+            <Button
+            classes='btn-style-1'
+            disable={true}
+            onclick={handleLogin}
+            text="Login"/>
+          ) : (
+            <Button
+            classes='btn-style-1'
+            disable={false}
+            onclick={handleLogin}
+            text="Login"/>
+          )}
+          
         </form>
         {loading && <Loading />}
+        {msg && (
+          <>
+            <p>{msg}</p>
+            <p>Aguarde um momento, estamos te direcionando...</p>
+          </>
+        )}
         {erro && (
           <span className='text-danger'>Usuário ou senha inesistente</span>
         )}

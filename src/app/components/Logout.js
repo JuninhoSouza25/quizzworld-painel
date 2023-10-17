@@ -7,17 +7,13 @@ export default function Logout(){
   const router = useRouter()
 
   async function logout() {
-    await signOut({
-      redirect: false
-    })
-
-    router.redirect('/')
+    await signOut()
 
   }
 
   return (
-    <div className="logout-button d-flex justify-content-center align-items-center">
-      <LuLogOut className="logout-icon me-3 text-danger" onClick={logout}/>
+    <div className="logout-button d-flex justify-content-center align-items-center" onClick={logout}>
+      <LuLogOut className="logout-icon me-3 text-danger" />
       <p className="mb-0 text-danger">Logout</p>
     </div>
   )
