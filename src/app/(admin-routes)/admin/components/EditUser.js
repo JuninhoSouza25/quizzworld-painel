@@ -17,7 +17,7 @@ export default function EditUser({user, action}){
   const [msgFail, setMsgFail] = useState()
   const [updatedUser, setUpdatedUser] = useState()
 
-  const URL = "https://quizzworld-backend.vercel.app/api/"
+  const URL = process.env.URL_API
 
   useEffect(() => {
     axios.get(`${URL}/roles`,)

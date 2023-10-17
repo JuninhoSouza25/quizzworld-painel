@@ -17,7 +17,7 @@ const UserAdmin = ({sectionDefault}) =>{
   const [user, setUser] = useState()
   const [section, setSection] = useState(sectionDefault)
 
-  const URL = "https://quizzworld-backend.vercel.app/api/"
+  const URL = process.env.URL_API
 
   useEffect(() => {
     axios.get(`${URL}/users`,)

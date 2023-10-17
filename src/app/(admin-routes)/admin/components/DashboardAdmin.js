@@ -10,8 +10,8 @@ import { RiAdminLine } from "react-icons/ri"
 const DashboardAdmin = ({sectionDefault}) =>{
   const [ allUsers, setAllUsers ] = useState([])
   const [section, setSection] = useState(sectionDefault)
-
-  const URL = "https://quizzworld-backend.vercel.app/api/"
+  
+  const URL = process.env.URL_API
 
   useEffect(() => {
     axios.get(`${URL}/users`,)

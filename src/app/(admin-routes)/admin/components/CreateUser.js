@@ -14,7 +14,7 @@ export default function CreateUser({action}){
   const [msgSuccess, setMsgSuccess] = useState()
   const [msgFail, setMsgFail] = useState()
 
-  const URL = "https://quizzworld-backend.vercel.app/api/"
+  const URL = process.env.URL_API
 
   useEffect(() => {
     axios.get(`${URL}/roles`,)
