@@ -14,10 +14,10 @@ export default function CreateUser({action}){
   const [msgSuccess, setMsgSuccess] = useState()
   const [msgFail, setMsgFail] = useState()
 
-  const URL = process.env.URL_API
+  const URL = "https://quizzworld-backend.vercel.app/api/"
 
   useEffect(() => {
-    axios.get(`https://quizzworld-backend.vercel.app/api/roles`,)
+    axios.get(`${URL}/roles`,)
     .then(response => {
       setRoles(response.data)
     })
@@ -27,7 +27,7 @@ export default function CreateUser({action}){
   },[])
 
   function handleUser(data) {
-    axios.post(`https://quizzworld-backend.vercel.app/api/users`, {
+    axios.post(`${URL}/users`, {
       name: data.name,
       username: data.username,
       email: data.email,
