@@ -1,31 +1,30 @@
 .aside-menu{
-  min-height: 100vh;
+  ul{
+  padding: 0 3px;
 
-  .brand{
-    height: 170px;
-  }
-   ul{
-    padding: 0 3px;
+  li{
+    cursor: pointer;
+    padding: 7px 10px;
+    list-style: none;
+    border-radius: 12px;
+    border: 1px solid #66666640;
+    transition: var(--transition);
 
-    li{
-      cursor: pointer;
-      padding: 7px 10px;
-      list-style: none;
-      border-radius: 12px;
-      border: 1px solid #66666640;
-      transition: var(--transition);
-
-      &.active{
-        color: var(--color-white);
-        background: var(--color-gradient-primary);
-        border: 1px solid var(--color-gradient-primary);
-      }
-
-      &:hover{
-        color: var(--color-white);
-        background: var(--color-gradient-primary);
-        border: 1px solid var(--color-gradient-primary);
-      }
+    .icon{
+      font-size: 18px;
     }
-   }
+
+    &.active{
+      color: var(--color-white);
+      background: var(--color-gradient-primary);
+      border: 1px solid var(--color-gradient-primary);
+    }
+
+    &:hover{
+      color: var(--color-white);
+      background: var(--color-gradient-primary);
+      border: 1px solid var(--color-gradient-primary);
+    }
+  }
+  }
 }

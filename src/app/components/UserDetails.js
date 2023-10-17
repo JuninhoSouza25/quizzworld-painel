@@ -1,10 +1,15 @@
 import {RiArrowGoBackFill} from 'react-icons/ri'
+import Container from './Container'
 
 
 export default function UserDetails({user, action}){
   return(
-    <div className="user-details row col-12 p-5">
-      <div className="col-6 p-5 ms-3">
+
+    <Container
+    classes='user-details p-5 bg-light'
+    children={
+      <>
+        <div className="col-6 p-5 ms-3">
           <div className="thumbnail-wrapper">
             <img className="thumbnail" src={user.thumbnail ? user.thumbnail : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRs867oiFI9uKZePrJlp5ccrk_PJOu1ABWO8hnIutySxpbwLIHe2VAHDTV6PFb7yua7UbA&usqp=CAU"} alt="thumbnail"/>
           </div>
@@ -22,9 +27,11 @@ export default function UserDetails({user, action}){
             <span className="col">{user.username}</span>
           </div>
         </div>
-      <span className="col-12 text-danger text-end mt-0 w-100 cursor-pointer" onClick={action} >
-        Voltar <RiArrowGoBackFill className="icon-back fs-1 cursor-pointer text-danger"/>
-      </span>
-    </div>
+        <span className="col-12 text-danger text-center mt-0 w-100 cursor-pointer" onClick={action} >
+          Voltar <RiArrowGoBackFill className="icon-back fs-1 cursor-pointer text-danger"/>
+        </span> 
+      </>
+    }/>
+
   )
 }

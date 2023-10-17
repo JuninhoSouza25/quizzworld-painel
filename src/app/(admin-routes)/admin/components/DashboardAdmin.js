@@ -1,5 +1,6 @@
 'use client'
 import CardDashboard from "@/app/components/CardDashboard"
+import Container from "@/app/components/Container"
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { LiaUserEditSolid } from "react-icons/lia"
@@ -31,33 +32,37 @@ const DashboardAdmin = ({sectionDefault}) =>{
   
 
   return(
-    <div className="user-admin col bg-light shadow p-5">
-
+    <Container 
+    classes="user-admin bg-light"
+    children={
+      <>
       {section === 'home' && (
-        <div className="col-12 d-flex justify-content-around">
+        <Container
+        children={
+          <>
+            <CardDashboard 
+            bg={"bg-light-green"}
+            icon={<LuUsers className='icon'/>}
+            dataNumber={allUsers.length}
+            cardTitle={"Usuários Ativos"}/>
 
-          <CardDashboard 
-          bg={"bg-light-green"}
-          icon={<LuUsers className='icon'/>}
-          dataNumber={allUsers.length}
-          cardTitle={"Usuários Ativos"}/>
+            <CardDashboard 
+            bg={"bg-light-blue"}
+            icon={<RiAdminLine className='icon'/>}
+            dataNumber={5}
+            cardTitle={"Admins Ativos"}/>
 
-          <CardDashboard 
-          bg={"bg-light-blue"}
-          icon={<RiAdminLine className='icon'/>}
-          dataNumber={5}
-          cardTitle={"Admins Ativos"}/>
-
-          <CardDashboard 
-          bg={"bg-light-purple"}
-          icon={<LiaUserEditSolid className='icon'/>}
-          dataNumber={7}
-          cardTitle={"Creaters Ativos"}/>
-          
-        </div>
+            <CardDashboard 
+            bg={"bg-light-purple"}
+            icon={<LiaUserEditSolid className='icon'/>}
+            dataNumber={7}
+            cardTitle={"Creaters Ativos"}/>
+          </>
+        }/>
       )}
-     
-    </div>
+      
+      </>
+    }/>
   )
 }
 

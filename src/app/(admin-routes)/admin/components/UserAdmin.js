@@ -9,6 +9,7 @@ import {RiDeleteBin2Line, RiArrowGoBackFill} from 'react-icons/ri'
 import UserHome from "./UserHome"
 import CreateUser from "./CreateUser"
 import EditUser from "./EditUser"
+import Container from "@/app/components/Container"
 
 const UserAdmin = ({sectionDefault}) =>{
   const [ allUsers, setAllUsers ] = useState([])
@@ -53,56 +54,59 @@ const UserAdmin = ({sectionDefault}) =>{
   
 
   return(
-    <div className="user-admin col bg-light shadow">
+    <Container 
+    classes="user-admin"
+    children={
+      <>
+        {popup && <PopUp user={user.username} function1={() => eraseUser(user._id)} function2={handlePopUp}/>}
 
-      {popup && <PopUp user={user.username} function1={() => eraseUser(user._id)} function2={handlePopUp}/>}
+        {section === 'home' && (
+          <UserHome 
+          action1={() => handleSection(null, 'users')}
+          action2={() => handleSection(null, 'create-user')}/>
+        )}
 
-      {section === 'home' && (
-        <UserHome 
-        action1={() => handleSection(null, 'users')}
-        action2={() => handleSection(null, 'create-user')}/>
-      )}
-
-      {section === 'users' && (
-        <ul>
-          <li className="mb-3 row pt-4 pb-2">
-            <div className="col-3 fw-bold">Nome</div>
-            <div className="col-2 fw-bold">Username</div>
-            <div className="col-3 fw-bold">Email</div>
-            <div className="col-2 fw-bold">Função</div>
-            <div className="col-2 fw-bold">Ações</div>
-          </li>
-          {allUsers.map((item) => (
-            <li className="mb-3 row pb-1" key={item._id}>
-              <div className="col-3 fw-light">{item.name}</div>
-              <div className="col-2 fw-light">{item.username}</div>
-              <div className="col-3 fw-light">{item.email}</div>
-              <div className="col-2 fw-light">{item.role}</div>
-              <div className="col-2 fw-light row">
-                <LiaUser className="col-2 fs-2 text-success cursor-pointer" onClick={() => handleSection(item, 'details')}/>
-                <LiaUserEditSolid className="col-2 fs-2 cursor-pointer" onClick={() => handleSection(item, 'edite-user')}/>
-                <RiDeleteBin2Line className="col-2 fs-2 text-danger cursor-pointer" onClick={() => handlePopUp(item)}/>
-              </div>
-
+        {section === 'users' && (
+          <ul>
+            <li className="mb-3 row pt-4 pb-2">
+              <div className="col-3 fw-bold">Nome</div>
+              <div className="col-2 fw-bold">Username</div>
+              <div className="col-3 fw-bold">Email</div>
+              <div className="col-2 fw-bold">Função</div>
+              <div className="col-2 fw-bold">Ações</div>
             </li>
-          ))}
-        </ul>
-      )}
+            {allUsers.map((item) => (
+              <li className="mb-3 row pb-1" key={item._id}>
+                <div className="col-3 fw-light">{item.name}</div>
+                <div className="col-2 fw-light">{item.username}</div>
+                <div className="col-3 fw-light">{item.email}</div>
+                <div className="col-2 fw-light">{item.role}</div>
+                <div className="col-2 fw-light row">
+                  <LiaUser className="col-2 fs-2 text-success cursor-pointer" onClick={() => handleSection(item, 'details')}/>
+                  <LiaUserEditSolid className="col-2 fs-2 cursor-pointer" onClick={() => handleSection(item, 'edite-user')}/>
+                  <RiDeleteBin2Line className="col-2 fs-2 text-danger cursor-pointer" onClick={() => handlePopUp(item)}/>
+                </div>
 
-      {section === 'details' && (
-        <UserDetails user={user} action={() => handleSection(null, 'home')} />
-      )}
+              </li>
+            ))}
+          </ul>
+        )}
 
-      {section === 'create-user' && (
-        <CreateUser action={() => handleSection(null, 'home')}/>
-      )}
+        {section === 'details' && (
+          <UserDetails user={user} action={() => handleSection(null, 'home')} />
+        )}
 
-      {section === 'edite-user' && (
-        <EditUser user={user} action={() => handleSection(null, 'home')}/>
-      )}
+        {section === 'create-user' && (
+          <CreateUser action={() => handleSection(null, 'home')}/>
+        )}
 
-    </div>
-  )
+        {section === 'edite-user' && (
+          <EditUser user={user} action={() => handleSection(null, 'home')}/>
+        )}
+      </>
+    }/>
+
+ )
 }
 
 export default UserAdmin
