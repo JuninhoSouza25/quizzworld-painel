@@ -90,6 +90,7 @@ export default function Home() {
           <>
             <p>{msg}</p>
             <p>Aguarde um momento, estamos te direcionando...</p>
+            <Loading />
           </>
         )}
         {erro && (

@@ -95,6 +95,7 @@ export default function Signin(){
           <>
             <p>{msg}</p>
             <p>Aguarde um momento, estamos te direcionando...</p>
+            <Loading />
           </>
         )}
         {erro && (
