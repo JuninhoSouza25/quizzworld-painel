@@ -2,8 +2,20 @@ input, select{
   border: none;
   padding: 7px 15px;
 
+  &.input-bg-white{
+    background-color: #ffffff;
+  }
+
   &:focus{
     background-color: rgba(13, 109, 253, 0.1);
     outline: none;
   }
+
+}
+
+input::file-selector-button {
+  display: none;
+  padding: 0.5em;
+  border: none;
+  background-color: #ffffff;
 }

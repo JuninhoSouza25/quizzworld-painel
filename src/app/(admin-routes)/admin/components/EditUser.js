@@ -6,6 +6,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form"
 import { RiArrowGoBackFill } from "react-icons/ri";
+import { BiUpload } from 'react-icons/bi'
 
 export default function EditUser({user, action}){
 
@@ -88,14 +89,16 @@ export default function EditUser({user, action}){
       'Content-Type': 'multipart/form-data'
       }
     }).then(response => {
-          console.log(response.data.file.firebaseUrl)
-          setImgReturn(response.data.file.firebaseUrl)
-          setUploadMsg('')
+          console.log(response.data.response.src)
+          setImgReturn(response.data.response.src)
+          setUploadMsg('Imagem carregada com sucesso!')
+          setProgress({started: false, pc: 0})
           console.log(response.status);
       })
       .catch(error => {
         setUploadMsg(error.response.data.msg)
         console.error("Erro ao enviar imagem:", error)
+        setProgress({started: false, pc: 0})
       })
   }
   
@@ -221,19 +224,21 @@ export default function EditUser({user, action}){
             {msgFail && <span className="col-12 text-danger text-center fs-5 mt-0 w-100">{msgFail}</span>}
 
 
-              <label className={`col-6 mb-0 ms-4 mt-3`}>
+            <label className={`col-12 mb-0 ms-4 mt-3`}>
                 Avatar
               </label>
-              <input
-              type="file" 
-              name="file"
-              onChange={(e) => {setImageUpload(e.target.files[0])}}
-              placeholder="Coloque o link da imagem" 
-              className={`rounded-pill w-50 bg-white`}/>
-              <button classes="bg-primary mt-5 mb-3 w-25" onClick={handleUpload}>Enviar imagem</button>
+              <div className="col-12 row rounded-pill bg-white">
+                <input
+                type="file" 
+                name="file"
+                onChange={(e) => {setImageUpload(e.target.files[0])}}
+                placeholder="Coloque o link da imagem" 
+                className={`ps-5 col rounded-pill bg-white`}/>
+                <div className="col-1 my-auto me-2 cursor-pointer" onClick={handleUpload}><BiUpload className="icon" /></div>
+              </div>
 
               {progress.started && <progress max="100" value={progress.pc}></progress>}
-              {progress.started || uploadMsg && <span>{uploadMsg}</span>}
+              {uploadMsg && <span>{uploadMsg}</span>}
 
               
             <Button type={"submit"} text={"Atualizar usuário"} classes="bg-primary mt-5 mb-3 w-100"/>

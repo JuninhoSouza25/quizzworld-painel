@@ -7,6 +7,7 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form"
 import { RiArrowGoBackFill } from "react-icons/ri";
+import { BiUpload } from 'react-icons/bi'
 
 export default function CreateUser({action}){
 
@@ -100,17 +101,6 @@ export default function CreateUser({action}){
             <h3 className="h3 text-center fw-normal mt-5">Criar novo usuário</h3>
           </div>
 
-          <Box children={
-            <>
-
-              
-
-              {imgReturn && <img src={imgReturn} width={400} height={400} alt="imagem upload"/>}
- 
-
-            </>
-          }/>
-
           {!msgSuccess ? (
             <form className="col-12 col-lg-6 mx-auto my-5" onSubmit={handleSubmit(handleUser)}>
 
@@ -124,7 +114,7 @@ export default function CreateUser({action}){
               name="name" 
               id="name" 
               placeholder="Ex.: João das Neves" 
-              className={`rounded-pill w-100 bg-white ${errors.name?.type === "required" ? "text-danger" : ""} `}/>
+              className={`rounded-pill w-100 input-bg-white ${errors.name?.type === "required" ? "text-danger" : ""} `}/>
               {errors.name?.type === "required" && ( <span className="col-12 ms-4 fs-5 text-danger text-center mt-0 w-100">Nome é obrigatório</span> )}
               {msgFail && <span className="col-12 text-danger text-center fs-5 mt-0 w-100">{msgFail}</span>}
 
@@ -137,7 +127,7 @@ export default function CreateUser({action}){
               name="username" 
               id="username" 
               placeholder="Ex.: JoaoDasNeves99" 
-              className={`rounded-pill w-100 bg-white ${errors.username?.type === "required" ? "text-danger" : ""} `}/>
+              className={`rounded-pill w-100 input-bg-white ${errors.username?.type === "required" ? "text-danger" : ""} `}/>
               {errors.username?.type === "required" && ( <span className="col-12 ms-4 fs-5 text-danger text-center mt-0 w-100">Username é obrigatório</span> )}
               {msgFail && <span className="col-12 text-danger text-center fs-5 mt-0 w-100">{msgFail}</span>}
 
@@ -150,7 +140,7 @@ export default function CreateUser({action}){
               name="email" 
               id="email" 
               placeholder="Ex.: joaodasneves@starkfamily.com" 
-              className={`rounded-pill w-100 bg-white ${errors.email?.type === "required" ? "text-danger" : ""} `}/>
+              className={`rounded-pill w-100 input-bg-white ${errors.email?.type === "required" ? "text-danger" : ""} `}/>
               {errors.email?.type === "required" && ( <span className="col-12 ms-4 fs-5 text-danger text-center mt-0 w-100">Email é obrigatório</span> )}
               {msgFail && <span className="col-12 text-danger text-center fs-5 mt-0 w-100">{msgFail}</span>}
 
@@ -163,7 +153,7 @@ export default function CreateUser({action}){
               name="password" 
               id="password" 
               placeholder="XXXXXXXX - mínimo 8 digitos, letras maiúsculas e minúsculas, caracteres especiais" 
-              className={`rounded-pill w-100 bg-white ${errors.password?.type === "required" ? "text-danger" : ""} `}/>
+              className={`rounded-pill w-100 input-bg-white ${errors.password?.type === "required" ? "text-danger" : ""} `}/>
               {errors.password?.type === "required" && ( <span className="col-12 ms-4 fs-5 text-danger text-center mt-0 w-100">Senha é obrigatória</span> )}
               {msgFail && <span className="col-12 text-danger text-center fs-5 mt-0 w-100">{msgFail}</span>}
 
@@ -176,7 +166,7 @@ export default function CreateUser({action}){
               name="confirmpassword" 
               id="confirmpassword" 
               placeholder="XXXXXXXX" 
-              className={`rounded-pill w-100 bg-white ${errors.confirmpassword?.type === "required" ? "text-danger" : ""} `}/>
+              className={`rounded-pill w-100 input-bg-white ${errors.confirmpassword?.type === "required" ? "text-danger" : ""} `}/>
               {errors.confirmpassword?.type === "required" && ( <span className="col-12 ms-4 fs-5 text-danger text-center mt-0 w-100">Senha é obrigatória</span> )}
               {msgFail && <span className="col-12 text-danger text-center mt-0 w-100 fs-5">{msgFail}</span>}
 
@@ -187,28 +177,30 @@ export default function CreateUser({action}){
               {...register('role', {required: true})}
               name="role" 
               id="role" 
-              className="bg-white w-100 rounded-pill">
-                  <option className="bg-white w-100" value={''}>---</option>
+              className="input-bg-white w-100 rounded-pill">
+                  <option className="input-bg-white w-100" value={''}>---</option>
                 {roles && roles.map((item) => (
-                  <option className="bg-white w-100" key={item._id} value={item.role}>{item.role}</option>
+                  <option className="input-bg-white w-100" key={item._id} value={item.role}>{item.role}</option>
                 ))}
               </select>
               {errors.role?.type === "required" && ( <span className="col-12 ms-4 fs-5 text-danger text-center mt-0 w-100">Por favor, selecione uma função!</span> )}
               {msgFail && <span className="col-12 text-danger text-center fs-5 mt-0 w-100">{msgFail}</span>}
 
-              <label className={`col-6 mb-0 ms-4 mt-3`}>
+              <label className={`col-12 mb-0 ms-4 mt-3`}>
                 Avatar
               </label>
-              <input
-              type="file" 
-              name="file"
-              onChange={(e) => {setImageUpload(e.target.files[0])}}
-              placeholder="Coloque o link da imagem" 
-              className={`rounded-pill w-50 bg-white`}/>
-              <button classes="bg-primary mt-5 mb-3 w-25" onClick={handleUpload}>Enviar imagem</button>
+              <div className="col-12 row rounded-pill bg-white">
+                <input
+                type="file" 
+                name="file"
+                onChange={(e) => {setImageUpload(e.target.files[0])}}
+                placeholder="Coloque o link da imagem" 
+                className={`ps-5 col rounded-pill bg-white`}/>
+                <div className="col-1 my-auto me-2 cursor-pointer" onClick={handleUpload}><BiUpload className="icon" /></div>
+              </div>
 
               {progress.started && <progress max="100" value={progress.pc}></progress>}
-              {progress.started || uploadMsg && <span>{uploadMsg}</span>}
+              {uploadMsg && <span>{uploadMsg}</span>}
               
               <Button type={"submit"} text={"Criar Usuário"} classes="bg-primary mt-5 mb-3 w-100"/>
 
