@@ -16,6 +16,10 @@ export default function EditUser({user, action}){
   const [msgSuccess, setMsgSuccess] = useState()
   const [msgFail, setMsgFail] = useState()
   const [updatedUser, setUpdatedUser] = useState()
+  const [imageUpload, setImageUpload] = useState()
+  const [progress, setProgress] = useState({started: false, pc: 0})
+  const [uploadMsg, setUploadMsg] = useState(null)
+  const [imgReturn, setImgReturn] = useState()
 
   const URL = process.env.URL_API
 
@@ -46,7 +50,7 @@ export default function EditUser({user, action}){
       username: data.username ? data.username : user.username,
       email: data.email ? data.email : user.email,
       role: data.role ? data.role : user.role,
-      thumbnail: data.thumbnail ? data.thumbnail : user.thumbnail
+      thumbnail: imgReturn ? imgReturn : user.thumbnail
     }, {
       headers: {
           'Content-Type': 'application/json'
@@ -62,6 +66,37 @@ export default function EditUser({user, action}){
     setMsgFail(error.response.data.msg)
     console.error("Erro ao editar usuário:", error);
   });
+  }
+
+  function handleUpload(){
+
+  setUploadMsg("Carregando...");
+  setProgress(prevState => {
+    return {...prevState, started: true}
+  })
+
+  const formData = new FormData()
+  formData.append('file', imageUpload)
+  formData.append('name', imageUpload.name)
+
+  axios.post(`${URL}/images`, formData,{
+    onUploadProgress: (progressEvent) => {setProgress(prevState => {
+      return { ...prevState, pc: progressEvent.progress*100}
+    })}
+  },
+    {headers: {
+      'Content-Type': 'multipart/form-data'
+      }
+    }).then(response => {
+          console.log(response.data.file.firebaseUrl)
+          setImgReturn(response.data.file.firebaseUrl)
+          setUploadMsg('')
+          console.log(response.status);
+      })
+      .catch(error => {
+        setUploadMsg(error.response.data.msg)
+        console.error("Erro ao enviar imagem:", error)
+      })
   }
   
 
@@ -186,19 +221,21 @@ export default function EditUser({user, action}){
             {msgFail && <span className="col-12 text-danger text-center fs-5 mt-0 w-100">{msgFail}</span>}
 
 
-            <label className={`col-12 mb-0 ms-4 mt-3`} htmlFor="thumbnail">
-              Avatar
-            </label>
-            <input
-            {...register('thumbnail')}
-            type="text" 
-            name="thumbnail"
-            id="thumbnail" 
-            placeholder={"Cole o link com o endereço da imagem"}
-            className={`rounded-pill w-100 bg-white`}/>
+              <label className={`col-6 mb-0 ms-4 mt-3`}>
+                Avatar
+              </label>
+              <input
+              type="file" 
+              name="file"
+              onChange={(e) => {setImageUpload(e.target.files[0])}}
+              placeholder="Coloque o link da imagem" 
+              className={`rounded-pill w-50 bg-white`}/>
+              <button classes="bg-primary mt-5 mb-3 w-25" onClick={handleUpload}>Enviar imagem</button>
 
+              {progress.started && <progress max="100" value={progress.pc}></progress>}
+              {progress.started || uploadMsg && <span>{uploadMsg}</span>}
 
-
+              
             <Button type={"submit"} text={"Atualizar usuário"} classes="bg-primary mt-5 mb-3 w-100"/>
             <div className="col-12 row text-center">
               {msgSuccess && <span className="col-12 text-danger text-center mt-0 w-100">{msgSuccess}</span>}

@@ -28,7 +28,7 @@ const UserAdmin = ({sectionDefault}) =>{
       console.log(error)
     })
 
-  },[allUsers])
+  },[])
 
 
   // Delete User
