@@ -37,7 +37,6 @@ export default function EditUser({user, action}){
   function handleUpdateUser(){
     axios.get(`${URL}/user/${user._id}`,)
     .then(response => {
-      console.log(response.data.user)
       setUpdatedUser(response.data.user)
     })
     .catch(error => {
@@ -61,7 +60,6 @@ export default function EditUser({user, action}){
       setMsgSuccess(response.data.msg)
       setMsgFail('')
       handleUpdateUser()
-      console.log(response.status);
   })
   .catch(error => {
     setMsgFail(error.response.data.msg)
@@ -89,11 +87,9 @@ export default function EditUser({user, action}){
       'Content-Type': 'multipart/form-data'
       }
     }).then(response => {
-          console.log(response.data.response.src)
           setImgReturn(response.data.response.src)
-          setUploadMsg('Imagem carregada com sucesso!')
+          setUploadMsg(response.data.msg)
           setProgress({started: false, pc: 0})
-          console.log(response.status);
       })
       .catch(error => {
         setUploadMsg(error.response.data.msg)

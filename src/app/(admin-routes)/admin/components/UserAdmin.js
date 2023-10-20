@@ -4,7 +4,7 @@ import PopUp from "@/app/components/PopUp"
 import UserDetails from "@/app/components/UserDetails"
 import axios from "axios"
 import { useEffect, useState } from "react"
-import {LiaUserEditSolid, LiaUser} from 'react-icons/lia'
+import {LiaUserEditSolid, LiaUser, LiaUserTimesSolid, LiaUserPlusSolid} from 'react-icons/lia'
 import {RiDeleteBin2Line, RiArrowGoBackFill} from 'react-icons/ri'
 import UserHome from "./UserHome"
 import CreateUser from "./CreateUser"
@@ -58,7 +58,8 @@ const UserAdmin = ({sectionDefault}) =>{
     classes="user-admin"
     children={
       <>
-        {popup && <PopUp user={user.username} function1={() => eraseUser(user._id)} function2={handlePopUp}/>}
+
+        {popup && <PopUp section={"usuário"} user={user.username} function1={() => eraseUser(user._id)} function2={handlePopUp}/>}
 
         {section === 'home' && (
           <UserHome 
@@ -67,8 +68,12 @@ const UserAdmin = ({sectionDefault}) =>{
         )}
 
         {section === 'users' && (
+          <>
+          <div className="row col-12 mb-4 pt-4 pb-2 ps-0 border rounded-pill" style={{height:'60px'}}>
+            <LiaUserPlusSolid className="col-1 fs-1 text-success cursor-pointer" onClick={() => handleSection(null, 'create-user')}/>
+          </div>
           <ul>
-            <li className="mb-3 row pt-4 pb-2">
+            <li className="mb-3 row pb-2">
               <div className="col-3 fw-bold">Nome</div>
               <div className="col-2 fw-bold">Username</div>
               <div className="col-3 fw-bold">Email</div>
@@ -83,25 +88,26 @@ const UserAdmin = ({sectionDefault}) =>{
                 <div className="col-2 fw-light">{item.role}</div>
                 <div className="col-2 fw-light row">
                   <LiaUser className="col-2 fs-2 text-success cursor-pointer" onClick={() => handleSection(item, 'details')}/>
-                  <LiaUserEditSolid className="col-2 fs-2 cursor-pointer" onClick={() => handleSection(item, 'edite-user')}/>
-                  <RiDeleteBin2Line className="col-2 fs-2 text-danger cursor-pointer" onClick={() => handlePopUp(item)}/>
+                  <LiaUserEditSolid className="col-2 fs-2 cursor-pointer" onClick={() => handleSection(item, 'edit-user')}/>
+                  <LiaUserTimesSolid className="col-2 fs-2 text-danger cursor-pointer" onClick={() => handlePopUp(item)}/>
                 </div>
 
               </li>
             ))}
           </ul>
+          </>
         )}
 
         {section === 'details' && (
-          <UserDetails user={user} action={() => handleSection(null, 'home')} />
+          <UserDetails user={user} action={() => handleSection(null, 'users')} />
         )}
 
         {section === 'create-user' && (
-          <CreateUser action={() => handleSection(null, 'home')}/>
+          <CreateUser action={() => handleSection(null, 'users')}/>
         )}
 
-        {section === 'edite-user' && (
-          <EditUser user={user} action={() => handleSection(null, 'home')}/>
+        {section === 'edit-user' && (
+          <EditUser user={user} action={() => handleSection(null, 'users')}/>
         )}
       </>
     }/>

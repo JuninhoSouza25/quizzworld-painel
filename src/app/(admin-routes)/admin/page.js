@@ -6,6 +6,7 @@ import { LuArrowRight, LuFilePieChart, LuFileBarChart, LuFileStack, LuFileText, 
 import UserAdmin from "./components/UserAdmin";
 import DashboardAdmin from "./components/DashboardAdmin";
 import Container from "@/app/components/Container";
+import ThemesHome from "@/app/components/themes/ThemesHome";
 
 export default function Admin(){
 
@@ -44,14 +45,6 @@ export default function Admin(){
                 </div>
 
               </li>
-              <li onClick={() => setComponent("Níveis")}
-                className={`${component === "Níveis" ? 'active' : ''} d-flex justify-content-start align-items-center`}>
-                <LuFileBarChart className="fs-2 mx-4" />Níveis
-                <div className="col text-end">
-                {component === "Níveis" && <LuArrowRight className="fs-2 mx-4"/>}
-                </div>
-
-              </li>
               <li onClick={() => setComponent("Perguntas")}
                 className={`${component === "Perguntas" ? 'active' : ''} d-flex justify-content-start align-items-center`}>
                 <LuFileText className="fs-2 mx-4" />Perguntas
@@ -80,6 +73,8 @@ export default function Admin(){
           {component === 'Usuários' && <UserAdmin sectionDefault={"home"} />}
 
           {component === 'Dashboard' && <DashboardAdmin sectionDefault={"home"} />}
+
+          {component === 'Temas' && <ThemesHome sectionDefault={"home"} />}
           
           </>
         }

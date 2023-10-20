@@ -1,6 +1,6 @@
 import {RiErrorWarningLine, RiDeleteBin2Line} from 'react-icons/ri'
 
-export default function PopUp({user, function1, function2}){
+export default function PopUp({section, user, function1, function2}){
   return(
     <div className='popup-wrapper'>
       <div className='popup-container px-3 py-5 d-flex flex-column'>
@@ -8,7 +8,7 @@ export default function PopUp({user, function1, function2}){
           <RiErrorWarningLine className='popup-icon-danger text-danger' />
         </div>
         <div className='row text-center'>
-          <p>{`Tem certeza que gostaria de deletar o usuário: ${user}`}</p>
+          <p>{`Tem certeza que gostaria de deletar o ${section}: ${user}`}</p>
         </div>
         <div className='row col d-flex justify-content-center gap-3'>
           <button 

@@ -1,9 +1,7 @@
 'use client'
-import Box from "@/app/components/Box";
 import Button from "@/app/components/Button";
 import Container from "@/app/components/Container";
 import axios from "axios";
-import Image from "next/image";
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form"
 import { RiArrowGoBackFill } from "react-icons/ri";
@@ -50,7 +48,6 @@ export default function CreateUser({action}){
     .then(response => {
       setMsgSuccess(response.data.msg)
       setMsgFail('')
-      console.log(response.status);
   })
   .catch(error => {
     setMsgFail(error.response.data.msg)
@@ -78,10 +75,8 @@ export default function CreateUser({action}){
           'Content-Type': 'multipart/form-data'
           }
         }).then(response => {
-              console.log(response.data.file.firebaseUrl)
               setImgReturn(response.data.file.firebaseUrl)
               setUploadMsg('')
-              console.log(response.status);
           })
           .catch(error => {
             setUploadMsg(error.response.data.msg)
