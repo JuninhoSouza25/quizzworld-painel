@@ -51,6 +51,17 @@ const UserAdmin = ({sectionDefault}) =>{
     setAllUsers(allUsers.filter(user => user._id !== "asdf"))
 
   }
+
+  function handleBack(section){
+    setSection(section)
+    axios.get(`${URL}/users`,)
+    .then(response => {
+      setAllUsers(response.data)
+    })
+    .catch(error => {
+      console.log(error)
+    })
+  }
   
 
   return(
@@ -99,15 +110,15 @@ const UserAdmin = ({sectionDefault}) =>{
         )}
 
         {section === 'details' && (
-          <UserDetails user={user} action={() => handleSection(null, 'users')} />
+          <UserDetails user={user} action={() => handleBack('users')} />
         )}
 
         {section === 'create-user' && (
-          <CreateUser action={() => handleSection(null, 'users')}/>
+          <CreateUser action={() => handleBack('users')}/>
         )}
 
         {section === 'edit-user' && (
-          <EditUser user={user} action={() => handleSection(null, 'users')}/>
+          <EditUser user={user} action={() => handleBack('users')}/>
         )}
       </>
     }/>

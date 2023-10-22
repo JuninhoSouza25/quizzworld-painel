@@ -7,6 +7,7 @@ import UserAdmin from "./components/UserAdmin";
 import DashboardAdmin from "./components/DashboardAdmin";
 import Container from "@/app/components/Container";
 import ThemesHome from "@/app/components/themes/ThemesHome";
+import QuestionsHome from "@/app/components/questions/QuestionsHome";
 
 export default function Admin(){
 
@@ -68,14 +69,13 @@ export default function Admin(){
           children={
           <>
 
-          
-
-          {component === 'Usuários' && <UserAdmin sectionDefault={"home"} />}
-
           {component === 'Dashboard' && <DashboardAdmin sectionDefault={"home"} />}
 
           {component === 'Temas' && <ThemesHome sectionDefault={"home"} />}
+
+          {component === 'Perguntas' && <QuestionsHome sectionDefault={"home"} />}
           
+          {component === 'Usuários' && <UserAdmin sectionDefault={"home"} />}
           </>
         }
         />

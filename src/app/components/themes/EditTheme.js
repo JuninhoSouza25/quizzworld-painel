@@ -87,12 +87,13 @@ export default function EditTheme({theme, action}){
       'Content-Type': 'multipart/form-data'
       }
     }).then(response => {
-          setImgReturn(response.data.file.src)
-          setUploadMsg(response.data.msg)
-          setProgress({started: false, pc: 0})
+        setImgReturn(response.data.file.src)
+        console.log(response)
+        setUploadMsg(response.data.msg)
+        setProgress({started: false, pc: 0})
       })
       .catch(error => {
-        console.log(error.response)
+        setUploadMsg(error.response.data.msg)
         console.error("Erro ao enviar imagem:", error)
         setProgress({started: false, pc: 0})
       })
