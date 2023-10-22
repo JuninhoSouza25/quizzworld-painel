@@ -20,8 +20,19 @@ export default function EditTheme({theme, action}){
   const [progress, setProgress] = useState({started: false, pc: 0})
   const [uploadMsg, setUploadMsg] = useState(null)
   const [imgReturn, setImgReturn] = useState()
+  const [categories, setCategories] = useState([])
 
   const URL = process.env.URL_API
+
+  useEffect(() => {
+    axios.get(`${URL}/categories`,)
+    .then(response => {
+      setCategories(response.data)
+    })
+    .catch(error => {
+      console.log(error)
+    })
+  },[])
 
   function handleUpdateTheme(){
     axios.get(`${URL}/theme/${theme._id}`,)
@@ -38,6 +49,7 @@ export default function EditTheme({theme, action}){
     axios.put(`${URL}/theme/${theme._id}`, {
       theme: data.theme ? data.theme : theme.theme,
       description: data.description ? data.description : theme.description,
+      category: data.category ? data.category : theme.category,
       image: imgReturn ? imgReturn : theme.image
     }, {
       headers: {
@@ -103,6 +115,10 @@ export default function EditTheme({theme, action}){
               </div>
               <h3 className="mt-5 fw-normal">{updatedTheme.theme}</h3>
               <div className="row col-12 d-flex align-items-center justify-content-around gap-4">
+                <span className="col-2 fw-bold">Categoria:</span>
+                <span className="col">{updatedTheme.category}</span>
+              </div>
+              <div className="row col-12 d-flex align-items-center justify-content-around gap-4">
                 <span className="col-2 fw-bold">Descrição:</span>
                 <span className="col">{updatedTheme.description}</span>
               </div>
@@ -118,6 +134,10 @@ export default function EditTheme({theme, action}){
                 <img className="thumbnail" src={theme.image} alt="thumbnail"/>
               </div>
               <h3 className="mt-5 fw-normal">{theme.theme}</h3>
+              <div className="row col-12 d-flex align-items-center justify-content-around gap-4">
+                <span className="col-2 fw-bold">Categoria:</span>
+                <span className="col">{theme.category}</span>
+              </div>
               <div className="row col-12 d-flex align-items-center justify-content-around gap-4">
                 <span className="col-2 fw-bold">Descrição:</span>
                 <span className="col">{theme.description}</span>
@@ -161,6 +181,22 @@ export default function EditTheme({theme, action}){
               placeholder={theme.description} 
               className={`rounded-pill w-100 input-bg-white ${errors.description?.type === "required" ? "text-danger" : ""} `}/>
               {errors.description?.type === "required" && ( <span className="col-12 ms-4 fs-5 text-danger text-center mt-0 w-100">Descrição é obrigatória</span> )}
+              {msgFail && <span className="col-12 text-danger text-center fs-5 mt-0 w-100">{msgFail}</span>}
+
+              <label className={`col-12 mb-0 ms-4 mt-3 ${errors.role?.type === "required" && "text-danger"}`} htmlFor="roles">
+                Selecione a categoria
+              </label>
+              <select 
+              {...register('category', {required: true})}
+              name="category" 
+              id="category" 
+              className="input-bg-white w-100 rounded-pill">
+                  <option className="input-bg-white w-100" value={''}>---</option>
+                {categories && categories.map((item) => (
+                  <option className="input-bg-white w-100" key={item._id} value={item.category}>{item.category}</option>
+                ))}
+              </select>
+              {errors.role?.type === "required" && ( <span className="col-12 ms-4 fs-5 text-danger text-center mt-0 w-100">Por favor, selecione uma categoria!</span> )}
               {msgFail && <span className="col-12 text-danger text-center fs-5 mt-0 w-100">{msgFail}</span>}
 
 

@@ -19,14 +19,26 @@ export default function CreateTheme({action}){
   const [progress, setProgress] = useState({started: false, pc: 0})
   const [uploadMsg, setUploadMsg] = useState(null)
   const [imgReturn, setImgReturn] = useState()
+  const [categories, setCategories] = useState([])
 
   const URL = process.env.URL_API
+
+  useEffect(() => {
+    axios.get(`${URL}/categories`,)
+    .then(response => {
+      setCategories(response.data)
+    })
+    .catch(error => {
+      console.log(error)
+    })
+  },[])
 
 
   function handleTheme(data) {
     axios.post(`${URL}/themes`, {
       theme: data.theme,
       description: data.description,
+      category: data.category,
       image: imgReturn
     }, {
       headers: {
@@ -117,6 +129,22 @@ export default function CreateTheme({action}){
               placeholder="Perguntas sobre séries..." 
               className={`rounded-pill w-100 input-bg-white ${errors.description?.type === "required" ? "text-danger" : ""} `}/>
               {errors.description?.type === "required" && ( <span className="col-12 ms-4 fs-5 text-danger text-center mt-0 w-100">Descrição é obrigatória</span> )}
+              {msgFail && <span className="col-12 text-danger text-center fs-5 mt-0 w-100">{msgFail}</span>}
+
+              <label className={`col-12 mb-0 ms-4 mt-3 ${errors.role?.type === "required" && "text-danger"}`} htmlFor="roles">
+                Selecione a categoria
+              </label>
+              <select 
+              {...register('category', {required: true})}
+              name="category" 
+              id="category" 
+              className="input-bg-white w-100 rounded-pill">
+                  <option className="input-bg-white w-100" value={''}>---</option>
+                {categories && categories.map((item) => (
+                  <option className="input-bg-white w-100" key={item._id} value={item.category}>{item.category}</option>
+                ))}
+              </select>
+              {errors.role?.type === "required" && ( <span className="col-12 ms-4 fs-5 text-danger text-center mt-0 w-100">Por favor, selecione uma categoria!</span> )}
               {msgFail && <span className="col-12 text-danger text-center fs-5 mt-0 w-100">{msgFail}</span>}
 
 
