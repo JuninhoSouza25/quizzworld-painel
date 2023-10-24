@@ -7,6 +7,7 @@ import { useEffect, useState } from "react"
 import Container from "@/app/components/Container"
 
 import { LuFileEdit, LuFileMinus2, LuFilePlus2 } from "react-icons/lu"
+import CreateQuiz from "./CreateQuiz"
 
 const QuiziesHome = ({sectionDefault}) =>{
   const [ allQuizies, setAllQuizies ] = useState([])
@@ -31,7 +32,7 @@ const QuiziesHome = ({sectionDefault}) =>{
   // Delete User
   function eraseQuiz(id){
     axios.delete(`${URL}/quiz/${id}`)
-    setAllQuizies(setQuiz.filter(quiz => quiz._id !== id))
+    setAllQuizies(allQuizies.filter(quiz => quiz._id !== id))
     setPopUp(false)
   }
 
@@ -44,7 +45,7 @@ const QuiziesHome = ({sectionDefault}) =>{
   function handleSection(data, section){
     setSection(section)
     setQuiz(data)
-    setAllQuizies(setQuiz.filter(quiz => quiz._id !== "asdf"))
+    setAllQuizies(allQuizies.filter(quiz => quiz._id !== "asdf"))
   }
 
   function handleBack(section){
@@ -67,8 +68,6 @@ const QuiziesHome = ({sectionDefault}) =>{
 
         {popup && <PopUp section={"quiz"} user={quiz.title} function1={() => eraseQuiz(quiz._id)} function2={handlePopUp}/>}
 
-
-
         {section === 'home' && (
           <>
           <div className="row col-12 mb-4 pt-4 pb-2 ps-0 border rounded-pill" style={{height:'60px'}}>
@@ -84,10 +83,10 @@ const QuiziesHome = ({sectionDefault}) =>{
             </li>
             {allQuizies.map((item) => (
               <li className="mb-3 row pb-1" key={item._id}>
-                <div className="col-4 fw-light">{item.title}</div>
+                <div className="col-3 fw-light">{item.title}</div>
                 <div className="col-3 fw-light">{item.description  > 40 ? item.description.substring(0,40) + '...' : item.description}</div>
-                <div className="col-3 fw-light">{item.author}</div>
-                <div className="col-3 fw-light">{item.theme}</div>
+                <div className="col-2 fw-light">{item.author}</div>
+                <div className="col-2 fw-light">{item.theme}</div>
                 <div className="col-2 fw-light row">
                   {/* <LiaUser className="col-2 fs-2 text-success cursor-pointer" onClick={() => handleSection(item, 'details')}/> */}
                   <LuFileEdit className="col-2 fs-2 cursor-pointer" onClick={() => handleSection(item, 'edit-quiz')}/>
@@ -100,11 +99,11 @@ const QuiziesHome = ({sectionDefault}) =>{
           </>
         )}
 
-        {/* {section === 'create-questions' && (
-          <CreateTheme action={() => handleBack('home')}/>
+        {section === 'create-quiz' && (
+          <CreateQuiz action={() => handleBack('home')}/>
         )}
 
-        {section === 'edit-question' && (
+        {/* {section === 'edit-question' && (
           <EditTheme theme={theme} action={() => handleBack('home')}/>
         )} */}
 

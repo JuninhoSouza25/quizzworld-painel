@@ -31,7 +31,7 @@ const QuestionsHome = ({sectionDefault}) =>{
   // Delete User
   function eraseQuestion(id){
     axios.delete(`${URL}/question/${id}`)
-    setAllQuestions(setQuestion.filter(question => question._id !== id))
+    setAllQuestions(allQuestions.filter(question => question._id !== id))
     setPopUp(false)
   }
 
@@ -44,7 +44,7 @@ const QuestionsHome = ({sectionDefault}) =>{
   function handleSection(data, section){
     setSection(section)
     setQuestion(data)
-    setAllQuestions(setQuestion.filter(question => question._id !== "asdf"))
+    setAllQuestions(allQuestions.filter(question => question._id !== "asdf"))
   }
 
   function handleBack(section){
@@ -85,9 +85,9 @@ const QuestionsHome = ({sectionDefault}) =>{
             {allQuestions.map((item) => (
               <li className="mb-3 row pb-1" key={item._id}>
                 <div className="col-3 fw-light">{item.question  > 40 ? item.question.substring(0,40) + '...' : item.question}</div>
-                <div className="col-4 fw-light">{item.author}</div>
-                <div className="col-3 fw-light">{item.theme}</div>
-                <div className="col-3 fw-light">{item.level}</div>
+                <div className="col-3 fw-light">{item.author}</div>
+                <div className="col-2 fw-light">{item.theme}</div>
+                <div className="col-2 fw-light">{item.level}</div>
                 <div className="col-2 fw-light row">
                   {/* <LiaUser className="col-2 fs-2 text-success cursor-pointer" onClick={() => handleSection(item, 'details')}/> */}
                   <LuFileEdit className="col-2 fs-2 cursor-pointer" onClick={() => handleSection(item, 'edit-question')}/>
