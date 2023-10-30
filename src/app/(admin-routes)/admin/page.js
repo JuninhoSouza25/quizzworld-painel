@@ -2,19 +2,18 @@
 import Header from "@/app/components/Header";
 import { useSession } from "next-auth/react"
 import { useState } from "react";
-import { LuArrowRight, LuFilePieChart, LuFileBarChart, LuFileStack, LuFileText, LuUsers, LuGamepad2 } from "react-icons/lu";
+import { LuArrowRight, LuFilePieChart, LuFileStack, LuUsers, LuGamepad2 } from "react-icons/lu";
 import UserAdmin from "./components/UserAdmin";
 import DashboardAdmin from "./components/DashboardAdmin";
 import Container from "@/app/components/Container";
 import ThemesHome from "@/app/components/themes/ThemesHome";
-import QuestionsHome from "@/app/components/questions/QuestionsHome";
 import QuiziesHome from "@/app/components/quiz/QuiziesHome";
 
 export default function Admin(){
 
   const {data: session} = useSession()
 
-  const [ component, setComponent ] = useState('Painel Administrativo')
+  const [ component, setComponent ] = useState('Dashboard')
 
 
 
@@ -54,13 +53,6 @@ export default function Admin(){
                 {component === "Quiz" && <LuArrowRight className="fs-2 mx-4"/>}
                 </div>
               </li>
-              <li onClick={() => setComponent("Perguntas")}
-                className={`${component === "Perguntas" ? 'active' : ''} d-flex justify-content-start align-items-center`}>
-                <LuFileText className="fs-2 mx-4" />Perguntas
-                <div className="col text-end">
-                {component === "Perguntas" && <LuArrowRight className="fs-2 mx-4"/>}
-                </div>
-              </li>
               <li onClick={() => setComponent("Usuários")}
                 className={`${component === "Usuários" ? 'active' : ''} d-flex justify-content-start align-items-center`}>
                 <LuUsers className="fs-2 mx-4" />Usuários
@@ -82,8 +74,6 @@ export default function Admin(){
           {component === 'Temas' && <ThemesHome sectionDefault={"home"} />}
 
           {component === 'Quiz' && <QuiziesHome sectionDefault={"home"} />}
-
-          {component === 'Perguntas' && <QuestionsHome sectionDefault={"home"} />}
           
           {component === 'Usuários' && <UserAdmin sectionDefault={"home"} />}
           </>

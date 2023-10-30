@@ -57,6 +57,15 @@ export default function CreateQuiz({action}){
     setPopUp(false)
   }
 
+  function handleAllQuestions(id){
+    axios.get(`${URL}/quiz/${id}`)
+    .then(response => {
+      //console.log(response.data.questions)
+      setAllQuestions(response.data.questions)
+      console.log(allQuestions)
+    })
+  }
+
   function handlePopUp(data){
     !popup ? setPopUp(true) : setPopUp(false)
     setQuestion(data)
@@ -80,7 +89,7 @@ export default function CreateQuiz({action}){
   })
     .then(response => {
       setQuizReturn(response.data.response)
-      setAllQuestions(response.data.response.questions)
+      handleAllQuestions(response.data.response._id)
       console.log(response)
       setStage(2)
   })
@@ -257,7 +266,7 @@ export default function CreateQuiz({action}){
                     <Container 
                     children={
                         <>
-                          {popUpQuestion && <CreateQuestion quiz={quizReturn} action={() => setPopupQuestion(false)} />}
+                          {popUpQuestion && <CreateQuestion quiz={quizReturn} action={() => handleAllQuestions(quizReturn._id)} />}
                           
                         </>
 
@@ -280,9 +289,9 @@ export default function CreateQuiz({action}){
                           {allQuestions.map((item) => (
                             <li className="mb-3 row pb-1" key={item._id}>
                               <div className="col-3 fw-light">{item.question  > 40 ? item.question.substring(0,40) + '...' : item.question}</div>
-                              <div className="col-4 fw-light">{item.author}</div>
-                              <div className="col-3 fw-light">{item.theme}</div>
-                              <div className="col-3 fw-light">{item.level}</div>
+                              <div className="col-3 fw-light">{item.author}</div>
+                              <div className="col-2 fw-light">{item.theme}</div>
+                              <div className="col-2 fw-light">{item.level}</div>
                               <div className="col-2 fw-light row">
                                 {/* <LiaUser className="col-2 fs-2 text-success cursor-pointer" onClick={() => handleSection(item, 'details')}/> */}
                                 <LuFileEdit className="col-2 fs-2 cursor-pointer" onClick={() => handleSection(item, 'edit-question')}/>

@@ -4,10 +4,9 @@ import Container from "@/app/components/Container";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form"
-import { RiArrowGoBackFill } from "react-icons/ri";
 import { BiUpload } from 'react-icons/bi'
 import Card from "../Card";
-import { LiaPlusSolid, LiaQuestionSolid, LiaUserPlusSolid } from "react-icons/lia";
+import { LiaPlusSolid} from "react-icons/lia";
 import Box from "../Box";
 
 export default function CreateQuestion({quiz, action}){
@@ -20,8 +19,7 @@ export default function CreateQuestion({quiz, action}){
   const [progress, setProgress] = useState({started: false, pc: 0})
   const [uploadMsg, setUploadMsg] = useState(null)
   const [imgReturn, setImgReturn] = useState()
-  const [question, setQuestion] = useState([])
-  const [currentQuiz, setCurrentQuiz] = useState([])
+  const [currentQuiz, setCurrentQuiz] = useState({})
 
   const URL = process.env.URL_API
 
@@ -58,7 +56,6 @@ export default function CreateQuestion({quiz, action}){
       }
   })
     .then(response => {
-      setQuestion(response.data.response)
       handleUpdateQuiz(response.data.response)
       setMsgFail('')
   })
@@ -83,6 +80,7 @@ export default function CreateQuestion({quiz, action}){
       handleCurrentQuiz()
       console.log(response)
       setMsgFail('')
+      action()
     })
     .catch(error => {
       setMsgFail(error.response.data.msg)
@@ -270,32 +268,25 @@ export default function CreateQuestion({quiz, action}){
                   <>
                     <span className="col-12 text-success text-center mt-0 w-100">{msgSuccess}</span>
 
-                    <Card 
-                    classes={"card-style-1 border-primary "}
-                    innerClasses={"border-primary"}
-                    action={null}
-                    icon={currentQuiz.questions.length}
-                    textClasses={"text-primary"}
-                    text={"Perguntas criadas"} />
-                    
-                    <Card 
-                    classes={"card-style-1 border-success "}
-                    innerClasses={"border-success"}
-                    action={handleCreateQuestion}
-                    icon={<LiaPlusSolid className="icon text-success"/>}
-                    textClasses={"text-success"}
-                    text={"Criar nova pergunta"} />
+                    <Box children={
+                      <>
+                        <Card 
+                        classes={"card-style-1 border-success "}
+                        innerClasses={"border-success"}
+                        action={handleCreateQuestion}
+                        icon={<LiaPlusSolid className="icon text-success"/>}
+                        textClasses={"text-success"}
+                        text={"Criar nova pergunta"} />
+                      </>
+                    } />
 
-                    </>
+                  </>
                 }/>
               )}
               {msgFail && <span className="col-12 text-danger text-center mt-0 w-100">{msgFail}</span>}
             </div>
           )}
 
-          {/* <span className="col-12 text-danger text-center my-3 w-100 cursor-pointer" onClick={action} >
-            Voltar <RiArrowGoBackFill className="icon-back fs-1 cursor-pointer text-danger"/>
-          </span> */}
       </>
     }/>
   )
