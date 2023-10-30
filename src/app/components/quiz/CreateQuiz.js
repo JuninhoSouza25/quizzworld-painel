@@ -9,6 +9,7 @@ import { BiUpload } from 'react-icons/bi'
 import { useSession } from "next-auth/react";
 import { LuArrowRight, LuFileEdit, LuFileMinus2, LuFilePlus2 } from "react-icons/lu";
 import CreateQuestion from "./CreateQuestion";
+import PopUp from "../PopUp";
 
 export default function CreateQuiz({action}){
   const {register, handleSubmit, formState: { errors }} = useForm()
@@ -26,6 +27,7 @@ export default function CreateQuiz({action}){
   const { data: session } = useSession();
   const [popup, setPopUp] = useState(false)
   const [question, setQuestion] = useState()
+  const [popUpQuestion, setPopupQuestion] = useState(true)
 
 
   const URL = process.env.URL_API
@@ -78,6 +80,7 @@ export default function CreateQuiz({action}){
   })
     .then(response => {
       setQuizReturn(response.data.response)
+      setAllQuestions(response.data.response.questions)
       console.log(response)
       setStage(2)
   })
@@ -150,6 +153,8 @@ export default function CreateQuiz({action}){
     classes="bg-light"
     children={
       <>
+        {popup && <PopUp section={"questão"} user={question.question} function1={() => eraseQuestion(question._id)} function2={handlePopUp}/>}
+
           <div className="col-12 row">
             <h3 className="h3 text-center fw-normal mt-5">{`Etapa ${stage}`}</h3>
           </div>
@@ -252,7 +257,8 @@ export default function CreateQuiz({action}){
                     <Container 
                     children={
                         <>
-                          <CreateQuestion quiz={quizReturn} action={() => (null)} />
+                          {popUpQuestion && <CreateQuestion quiz={quizReturn} action={() => setPopupQuestion(false)} />}
+                          
                         </>
 
                     }/>

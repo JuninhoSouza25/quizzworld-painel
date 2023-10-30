@@ -6,6 +6,9 @@ import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form"
 import { RiArrowGoBackFill } from "react-icons/ri";
 import { BiUpload } from 'react-icons/bi'
+import Card from "../Card";
+import { LiaPlusSolid, LiaQuestionSolid, LiaUserPlusSolid } from "react-icons/lia";
+import Box from "../Box";
 
 export default function CreateQuestion({quiz, action}){
 
@@ -17,19 +20,35 @@ export default function CreateQuestion({quiz, action}){
   const [progress, setProgress] = useState({started: false, pc: 0})
   const [uploadMsg, setUploadMsg] = useState(null)
   const [imgReturn, setImgReturn] = useState()
-  const [options, setOptions] = useState([])
+  const [question, setQuestion] = useState([])
+  const [currentQuiz, setCurrentQuiz] = useState([])
 
   const URL = process.env.URL_API
+
+  function handleCurrentQuiz(){
+    axios.get(`${URL}/quiz/${quiz._id}`,)
+    .then(response => {
+      console.log("current quiz", response.data.questions)
+      setCurrentQuiz(response.data)
+    })
+    .catch(error => {
+      console.log(error)
+    })
+  }
+
+  useEffect(() => {
+    handleCurrentQuiz()
+  },[])
 
   
   function handleQuestion(data) {
     axios.post(`${URL}/questions`, {
       question: data.question,
-      theme: quiz.theme,
-      author: quiz.author,
+      theme: currentQuiz.theme,
+      author: currentQuiz.author,
       options: [data.option1, data.option2, data.option3, data.option4, data.option5],
       answer: data.answer,
-      level: quiz.level,
+      level: currentQuiz.level,
       thumbnail: imgReturn ? imgReturn : null,
       countRight: 0,
       countWrong: 0
@@ -39,18 +58,39 @@ export default function CreateQuestion({quiz, action}){
       }
   })
     .then(response => {
-      setMsgSuccess(response.data.msg)
+      setQuestion(response.data.response)
+      handleUpdateQuiz(response.data.response)
       setMsgFail('')
   })
   .catch(error => {
-    setMsgFail(error.response.data.msg)
+    setMsgFail(error.response)
     console.error("Erro ao criar Pergunta:", error);
   });
   }
 
-  function handleOptions(option){
-    setOptions(...options, option)
+  function handleUpdateQuiz(question){
+    axios.put(`${URL}/quiz/${quiz._id}`,{
+      title: quiz.title,
+      description: quiz.description,
+      author: quiz.author,
+      questions: [...currentQuiz.questions, question],
+      theme: quiz.theme,
+      level: quiz.level,
+      image: quiz.image
+    })
+    .then(response => {
+      setMsgSuccess("Pergunta criada com sucesso!")
+      handleCurrentQuiz()
+      console.log(response)
+      setMsgFail('')
+    })
+    .catch(error => {
+      setMsgFail(error.response.data.msg)
+      console.log(error.response)
+      console.error("Erro ao criar pergunta:", error);
+    });
   }
+
 
   function handleUpload(){
 
@@ -82,6 +122,12 @@ export default function CreateQuestion({quiz, action}){
             console.error("Erro ao enviar imagem:", error)
             setProgress({started: false, pc: 0})
           })
+  }
+
+  function handleCreateQuestion(){
+    setMsgSuccess('')
+    setUploadMsg('')
+    
   }
   
   
@@ -219,14 +265,37 @@ export default function CreateQuestion({quiz, action}){
           </form>
           ) : (
             <div className="col-12 row text-center">
-              {msgSuccess && <span className="col-12 text-danger text-center mt-0 w-100">{msgSuccess}</span>}
+              {msgSuccess && (
+                <Container children={
+                  <>
+                    <span className="col-12 text-success text-center mt-0 w-100">{msgSuccess}</span>
+
+                    <Card 
+                    classes={"card-style-1 border-primary "}
+                    innerClasses={"border-primary"}
+                    action={null}
+                    icon={currentQuiz.questions.length}
+                    textClasses={"text-primary"}
+                    text={"Perguntas criadas"} />
+                    
+                    <Card 
+                    classes={"card-style-1 border-success "}
+                    innerClasses={"border-success"}
+                    action={handleCreateQuestion}
+                    icon={<LiaPlusSolid className="icon text-success"/>}
+                    textClasses={"text-success"}
+                    text={"Criar nova pergunta"} />
+
+                    </>
+                }/>
+              )}
               {msgFail && <span className="col-12 text-danger text-center mt-0 w-100">{msgFail}</span>}
             </div>
           )}
 
-          <span className="col-12 text-danger text-center my-3 w-100 cursor-pointer" onClick={action} >
+          {/* <span className="col-12 text-danger text-center my-3 w-100 cursor-pointer" onClick={action} >
             Voltar <RiArrowGoBackFill className="icon-back fs-1 cursor-pointer text-danger"/>
-          </span>
+          </span> */}
       </>
     }/>
   )
