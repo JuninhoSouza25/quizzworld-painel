@@ -272,7 +272,7 @@ export default function CreateQuiz({action}){
                               <div className="col-2 fw-light">{item.level}</div>
                               <div className="col-2 fw-light row">
                                 {/* <LiaUser className="col-2 fs-2 text-success cursor-pointer" onClick={() => handleSection(item, 'details')}/> */}
-                                <LuFileEdit className="col-2 fs-2 cursor-pointer" onClick={() => handleSection(item, 'edit-question')}/>
+                                {/* <LuFileEdit className="col-2 fs-2 cursor-pointer" onClick={() => handleSection(item, 'edit-question')}/> */}
                                 <LuFileMinus2 className="col-2 fs-2 text-danger cursor-pointer" onClick={() => handlePopUp(item)}/>
                               </div>
 

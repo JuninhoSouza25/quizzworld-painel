@@ -11,7 +11,7 @@ import Box from "../Box";
 
 export default function CreateQuestion({quiz, action}){
 
-  const {register, handleSubmit, formState: { errors }} = useForm()
+  const {register, handleSubmit, reset, formState: { errors }} = useForm()
 
   const [msgSuccess, setMsgSuccess] = useState()
   const [msgFail, setMsgFail] = useState()
@@ -58,6 +58,7 @@ export default function CreateQuestion({quiz, action}){
     .then(response => {
       handleUpdateQuiz(response.data.response)
       setMsgFail('')
+      reset()
   })
   .catch(error => {
     setMsgFail(error.response)

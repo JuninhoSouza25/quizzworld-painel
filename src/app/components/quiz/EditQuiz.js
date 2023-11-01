@@ -177,93 +177,97 @@ export default function EditQuiz({quizId}){
       <Box
       children={
         <>
-          <form className="col-12 col-xl-6 mx-auto my-5" onSubmit={handleSubmit(handleUpdateQuiz)} >
+          {currentQuiz && (
+            <>
+              <form className="col-12 col-xl-6 mx-auto my-5" onSubmit={handleSubmit(handleUpdateQuiz)} >
   
-            <label className={`mb-0 ms-4`} htmlFor="title">
-              Título
-            </label>
-            <input 
-            {...register('title')}
-            aria-invalid={errors.title ? 'true' : 'false'}
-            type="text" 
-            name="title" 
-            id="title" 
-            placeholder="Escreva o título do Quiz" 
-            className={`rounded-pill w-100 input-bg-white `}/>
-            {errors.title?.type === "required" && ( <span className="col-12 ms-4 fs-5 text-danger text-center mt-0 w-100">O título é obrigatório</span> )}
-            {msgFail && <span className="col-12 text-danger text-center fs-5 mt-0 w-100">{msgFail}</span>}
+              <label className={`mb-0 ms-4`} htmlFor="title">
+                Título
+              </label>
+              <input 
+              {...register('title')}
+              aria-invalid={errors.title ? 'true' : 'false'}
+              type="text" 
+              name="title" 
+              id="title" 
+              defaultValue={currentQuiz.title} 
+              className={`rounded-pill w-100 input-bg-white `}/>
+              {errors.title?.type === "required" && ( <span className="col-12 ms-4 fs-5 text-danger text-center mt-0 w-100">O título é obrigatório</span> )}
+              {msgFail && <span className="col-12 text-danger text-center fs-5 mt-0 w-100">{msgFail}</span>}
 
-            <label className={`col-12 mb-0 ms-4 mt-3 ${errors.description?.type === "required" && "text-danger"}`} htmlFor="username">
-              Descrição
-            </label>
-            <input
-            {...register('description')}
-            type="text" 
-            name="description" 
-            id="description" 
-            placeholder="Perguntas sobre séries..." 
-            className={`rounded-pill w-100 input-bg-white `}/>
-            {errors.description?.type === "required" && ( <span className="col-12 ms-4 fs-5 text-danger text-center mt-0 w-100">Descrição é obrigatória</span> )}
-            {msgFail && <span className="col-12 text-danger text-center fs-5 mt-0 w-100">{msgFail}</span>}
-
-            <label className={`col-12 mb-0 ms-4 mt-3 ${errors.theme?.type === "required" && "text-danger"}`} htmlFor="theme">
-              Selecione o tema
-            </label>
-            <select 
-            {...register('theme')}
-            name="theme" 
-            id="theme" 
-            className="input-bg-white w-100 rounded-pill pe-5">
-                <option className="input-bg-white w-100" value={''}>---</option>
-              {theme && theme.map((item) => (
-                <option className="input-bg-white w-100" key={item._id} value={item.theme}>{item.theme}</option>
-              ))}
-            </select>
-            {errors.theme?.type === "required" && ( <span className="col-12 ms-4 fs-5 text-danger text-center mt-0 w-100">Por favor, selecione um tema!</span> )}
-            {msgFail && <span className="col-12 text-danger text-center fs-5 mt-0 w-100">{msgFail}</span>}
-
-            <label className={`col-12 mb-0 ms-4 mt-3 ${errors.level?.type === "required" && "text-danger"}`} htmlFor="level">
-              Selecione a dificuldade:
-            </label>
-            <select 
-            {...register('level')}
-            name="level" 
-            id="level" 
-            className="input-bg-white w-100 rounded-pill pe-5">
-                <option className="input-bg-white w-100" value={''}>---</option>
-              {level && level.map((item) => (
-                <option className="input-bg-white w-100" key={item._id} value={item.level}>{item.level}</option>
-              ))}
-            </select>
-            {errors.level?.type === "required" && ( <span className="col-12 ms-4 fs-5 text-danger text-center mt-0 w-100">Por favor, selecione uma dificuldade!</span> )}
-            {msgFail && <span className="col-12 text-danger text-center fs-5 mt-0 w-100">{msgFail}</span>}
-
-
-            <label className={`col-12 mb-0 ms-4 mt-3`}>
-              Imagem de capa
-            </label>
-            <div className="col mx-1 row rounded-pill bg-white">
+              <label className={`col-12 mb-0 ms-4 mt-3 ${errors.description?.type === "required" && "text-danger"}`} htmlFor="username">
+                Descrição
+              </label>
               <input
-              type="file" 
-              name="file"
-              onChange={(e) => {setImageUpload(e.target.files[0])}}
-              placeholder="Coloque o link da imagem" 
-              className={`ps-5 col rounded-pill bg-white`}/>
-              <div className="col-1 my-auto me-2 cursor-pointer" onClick={handleUpload}><BiUpload className="icon" /></div>
-            </div>
+              {...register('description')}
+              type="text" 
+              name="description" 
+              id="description" 
+              defaultValue={currentQuiz.description}
+              className={`rounded-pill w-100 input-bg-white `}/>
+              {errors.description?.type === "required" && ( <span className="col-12 ms-4 fs-5 text-danger text-center mt-0 w-100">Descrição é obrigatória</span> )}
+              {msgFail && <span className="col-12 text-danger text-center fs-5 mt-0 w-100">{msgFail}</span>}
 
-            {progress.started && <progress className="col pt-2" max="100" value={progress.pc}></progress>}
-            {uploadMsg && <span>{uploadMsg}</span>}
-            
-            
+              <label className={`col-12 mb-0 ms-4 mt-3 ${errors.theme?.type === "required" && "text-danger"}`} htmlFor="theme">
+                Selecione o tema
+              </label>
+              <select 
+              {...register('theme')}
+              name="theme" 
+              id="theme" 
+              className="input-bg-white w-100 rounded-pill pe-5">
+                  <option className="input-bg-white w-100" value={''}>---</option>
+                {theme && theme.map((item) => (
+                  <option className="input-bg-white w-100" key={item._id} value={item.theme}>{item.theme}</option>
+                ))}
+              </select>
+              {errors.theme?.type === "required" && ( <span className="col-12 ms-4 fs-5 text-danger text-center mt-0 w-100">Por favor, selecione um tema!</span> )}
+              {msgFail && <span className="col-12 text-danger text-center fs-5 mt-0 w-100">{msgFail}</span>}
 
-            <Button type={"submit"} text={"Atualizar Quiz"} classes="bg-primary mt-5 mb-3 w-100"/>
-            <div className="col-12 row text-center">
-              {msgSuccess && <span className="col-12 text-success text-center mt-0 w-100">{msgSuccess}</span>}
-              {msgFail && <span className="col-12 text-danger text-center mt-0 w-100">{msgFail}</span>}
-            </div>
+              <label className={`col-12 mb-0 ms-4 mt-3 ${errors.level?.type === "required" && "text-danger"}`} htmlFor="level">
+                Selecione a dificuldade:
+              </label>
+              <select 
+              {...register('level')}
+              name="level" 
+              id="level" 
+              className="input-bg-white w-100 rounded-pill pe-5">
+                  <option className="input-bg-white w-100" value={''}>---</option>
+                {level && level.map((item) => (
+                  <option className="input-bg-white w-100" key={item._id} value={item.level}>{item.level}</option>
+                ))}
+              </select>
+              {errors.level?.type === "required" && ( <span className="col-12 ms-4 fs-5 text-danger text-center mt-0 w-100">Por favor, selecione uma dificuldade!</span> )}
+              {msgFail && <span className="col-12 text-danger text-center fs-5 mt-0 w-100">{msgFail}</span>}
 
-          </form>
+
+              <label className={`col-12 mb-0 ms-4 mt-3`}>
+                Imagem de capa
+              </label>
+              <div className="col mx-1 row rounded-pill bg-white">
+                <input
+                type="file" 
+                name="file"
+                onChange={(e) => {setImageUpload(e.target.files[0])}}
+                placeholder="Coloque o link da imagem" 
+                className={`ps-5 col rounded-pill bg-white`}/>
+                <div className="col-1 my-auto me-2 cursor-pointer" onClick={handleUpload}><BiUpload className="icon" /></div>
+              </div>
+
+              {progress.started && <progress className="col pt-2" max="100" value={progress.pc}></progress>}
+              {uploadMsg && <span>{uploadMsg}</span>}
+              
+              
+
+              <Button type={"submit"} text={"Atualizar Quiz"} classes="bg-primary mt-5 mb-3 w-100"/>
+              <div className="col-12 row text-center">
+                {msgSuccess && <span className="col-12 text-success text-center mt-0 w-100">{msgSuccess}</span>}
+                {msgFail && <span className="col-12 text-danger text-center mt-0 w-100">{msgFail}</span>}
+              </div>
+
+            </form>
+            </>
+          )}
         </>
       }/>
       </>
