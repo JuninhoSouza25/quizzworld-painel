@@ -8,6 +8,7 @@ import Container from "@/app/components/Container"
 
 import { LuFileEdit, LuFileMinus2, LuFilePlus2 } from "react-icons/lu"
 import CreateQuiz from "./CreateQuiz"
+import EditQuiz from "./EditQuiz"
 
 const QuiziesHome = ({sectionDefault}) =>{
   const [ allQuizies, setAllQuizies ] = useState([])
@@ -103,9 +104,9 @@ const QuiziesHome = ({sectionDefault}) =>{
           <CreateQuiz action={() => handleBack('home')}/>
         )}
 
-        {/* {section === 'edit-question' && (
-          <EditTheme theme={theme} action={() => handleBack('home')}/>
-        )} */}
+        {section === 'edit-quiz' && (
+          <EditQuiz quizId={quiz} action={() => handleBack('home')}/>
+        )}
 
       </>
     }/>

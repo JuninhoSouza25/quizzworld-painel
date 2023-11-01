@@ -100,28 +100,6 @@ export default function CreateQuiz({action}){
   });
   }
 
-  function handleUpdateQuiz(){
-    axios.put(`${URL}/quiz/${quizReturn._id}`,{
-      title: quizReturn.title,
-      description: quizReturn.description,
-      author: quizReturn.user.name,
-      questions: quizReturn.questions,
-      theme: quizReturn.theme,
-      level: quizReturn.level,
-      image: quizReturn.image
-    })
-    .then(response => {
-      setMsgSuccess(response.data.msg)
-      console.log(response)
-      setMsgFail('')
-    })
-    .catch(error => {
-      setMsgFail(error.response.data.msg)
-      console.log(error.response)
-      console.error("Erro ao criar tema:", error);
-    });
-  }
-
   function handleUpload(){
 
     setUploadMsg("Carregando...");

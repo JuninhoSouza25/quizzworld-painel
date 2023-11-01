@@ -239,7 +239,7 @@ export default function EditUser({user, action}){
               
             <Button type={"submit"} text={"Atualizar usuário"} classes="bg-primary mt-5 mb-3 w-100"/>
             <div className="col-12 row text-center">
-              {msgSuccess && <span className="col-12 text-danger text-center mt-0 w-100">{msgSuccess}</span>}
+              {msgSuccess && <span className="col-12 text-success text-center mt-0 w-100">{msgSuccess}</span>}
               {msgFail && <span className="col-12 text-danger text-center mt-0 w-100">{msgFail}</span>}
             </div>
 
